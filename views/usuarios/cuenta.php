@@ -5,10 +5,10 @@
 </head>
 <body>
 <div class="container">
-    <h2>User Account</h2>
-    <h3>Welcome <?php echo $usuario['nombre']; ?>!</h3>
+    <h2>Cuenta de acceso</h2>
+    <h3> <?php echo $usuario['nombre']; ?>!</h3>
     <div class="account-info">
-        <p><b>Name: </b><?php echo $usuario['nombre']; ?></p>
+        <p><b>Nombre: </b><?php echo $usuario['nombre']; ?></p>
         <p><b>Email: </b><?php echo $usuario['email']; ?></p>
     </div>
 </div>

@@ -5,7 +5,7 @@
 </head>
 <body>
 <div class="container">
-    <h2>User Login</h2>
+    <h2>Credenciales de acceso</h2>
     <?php
     if(!empty($success_msg)){
         echo '<p class="statusMsg">'.$success_msg.'</p>';
@@ -23,10 +23,9 @@
           <?php echo form_error('password','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
-            <input type="submit" name="loginSubmit" class="btn-primary" value="Submit"/>
+            <input type="submit" name="loginSubmit" class="btn-primary" value="Procesar"/>
         </div>
     </form>
-    <p class="footInfo">Don't have an account? <a href="<?php echo base_url(); ?>usuarios/registro">Register here</a></p>
 </div>
 </body>
 </html>

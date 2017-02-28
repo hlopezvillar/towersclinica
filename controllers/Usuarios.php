@@ -1,7 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * User Management class created by CodexWorld
- */
 class Usuarios extends CI_Controller {
     
     function __construct() {
@@ -10,13 +7,10 @@ class Usuarios extends CI_Controller {
         $this->load->model('usuario');
     }
     
-    /*
-     * User account information
-     */
     public function cuenta(){
         $data = array();
         if($this->session->userdata('isUserLoggedIn')){
-            $data['usuario'] = $this->usuario->getRows(array('dni'=>$this->session->userdata('userId')));
+            $data['usuario'] = $this->usuario->getRows(array('id'=>$this->session->userdata('userId')));
             //load the view
             $this->load->view('usuarios/cuenta', $data);
         }else{
@@ -24,9 +18,6 @@ class Usuarios extends CI_Controller {
         }
     }
     
-    /*
-     * User login
-     */
     public function login(){
         $data = array();
         if($this->session->userdata('success_msg')){
@@ -50,20 +41,16 @@ class Usuarios extends CI_Controller {
                 $checkLogin = $this->usuario->getRows($con);
                 if($checkLogin){
                     $this->session->set_userdata('isUserLoggedIn',TRUE);
-                    $this->session->set_userdata('userId',$checkLogin['dni']);
+                    $this->session->set_userdata('userId',$checkLogin['id']);
                     redirect('usuarios/cuenta/');
                 }else{
                     $data['error_msg'] = 'Wrong email or password, please try again.';
                 }
             }
         }
-        //load the view
         $this->load->view('usuarios/login', $data);
     }
     
-    /*
-     * User registration
-     */
     public function registro(){
         $data = array();
         $userData = array();
@@ -74,31 +61,28 @@ class Usuarios extends CI_Controller {
             $this->form_validation->set_rules('conf_password', 'confirm password', 'required|matches[password]');
 
             $userData = array(
-                'name' => strip_tags($this->input->post('name')),
+                'nombre' => strip_tags($this->input->post('nombre')),
+                'apellidos' => strip_tags($this->input->post('apellidos')),
+                'dni' => strip_tags($this->input->post('dni')),
                 'email' => strip_tags($this->input->post('email')),
                 'password' => md5($this->input->post('password')),
-                'gender' => $this->input->post('gender'),
-                'phone' => strip_tags($this->input->post('phone'))
+                'estado' => 1,
             );
 
             if($this->form_validation->run() == true){
-                $insert = $this->user->insert($userData);
+                $insert = $this->usuario->insert($userData);
                 if($insert){
-                    $this->session->set_userdata('success_msg', 'Your registration was successfully. Please login to your account.');
+                    $this->session->set_userdata('success_msg', 'Registro válido. La cuenta de '.$userData['email'].' está lista para hacer login; ID='.$insert);
                     redirect('usuarios/login');
                 }else{
-                    $data['error_msg'] = 'Some problems occured, please try again.';
+                    $data['error_msg'] = 'Ha ocurrido algún error. Inténtalo de nuevo';
                 }
             }
         }
-        $data['user'] = $userData;
-        //load the view
+        $data['usuario'] = $userData;
         $this->load->view('usuarios/registro', $data);
     }
     
-    /*
-     * User logout
-     */
     public function logout(){
         $this->session->unset_userdata('isUserLoggedIn');
         $this->session->unset_userdata('userId');
@@ -106,15 +90,12 @@ class Usuarios extends CI_Controller {
         redirect('usuarios/login/');
     }
     
-    /*
-     * Existing email check during validation
-     */
     public function email_check($str){
         $con['returnType'] = 'count';
         $con['conditions'] = array('email'=>$str);
-        $checkEmail = $this->user->getRows($con);
+        $checkEmail = $this->usuario->getRows($con);
         if($checkEmail > 0){
-            $this->form_validation->set_message('email_check', 'The given email already exists.');
+            $this->form_validation->set_message('email_check', 'El email introducido ya existe.');
             return FALSE;
         } else {
             return TRUE;

@@ -16,8 +16,8 @@ class Usuario extends CI_Model {
             }
         }
         
-        if(array_key_exists("dni",$params)){
-            $this->db->where('dni',$params['dni']);
+        if(array_key_exists("id",$params)){
+            $this->db->where('id',$params['id']);
             $query = $this->db->get();
             $result = $query->row_array();
         }else{

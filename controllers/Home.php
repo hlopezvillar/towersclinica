@@ -2,7 +2,6 @@
 class Home extends CI_Controller {
     public function index()
         {  $this->load->view('templates/header');
-		// Database
 		   $this->load->model('jugadores');
 		   $data['jugadores'] = $this->jugadores->get_rows();
 		   

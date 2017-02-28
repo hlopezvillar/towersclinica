@@ -1,59 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">  
+<html lang="es">  
 <head>
 <!--<link href="<php echo base_url(); ?>assets/css/style.css" rel='stylesheet' type='text/css' />-->
 </head>
 <body>
 <div class="container">
-    <h2>User Registration</h2>
+    <h2>Registro de cuenta de acceso</h2>
     <form action="" method="post">
         <div class="form-group">
-            <input type="text" class="form-control" name="name" placeholder="Name" required="" value="<?php echo !empty($usuario['name'])?$usuario['name']:''; ?>">
-          <?php echo form_error('name','<span class="help-block">','</span>'); ?>
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre" required="" value="<?php echo !empty($usuario['nombre'])?$usuario['nombre']:''; ?>">
+          <?php echo form_error('Nombre','<span class="help-block">','</span>'); ?>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" required="" value="<?php echo !empty($usuario['apellidos'])?$usuario['apellidos']:''; ?>">
+          <?php echo form_error('Apellidos','<span class="help-block">','</span>'); ?>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="dni" placeholder="DNI" required="" value="<?php echo !empty($usuario['dni'])?$usuario['dni']:''; ?>">
+          <?php echo form_error('DNI','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
             <input type="email" class="form-control" name="email" placeholder="Email" required="" value="<?php echo !empty($usuario['email'])?$usuario['email']:''; ?>">
           <?php echo form_error('email','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="phone" placeholder="Phone" value="<?php echo !empty($usuario['phone'])?$usuario['phone']:''; ?>">
-        </div>
-        <div class="form-group">
           <input type="password" class="form-control" name="password" placeholder="Password" required="">
           <?php echo form_error('password','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" name="conf_password" placeholder="Confirm password" required="">
+          <input type="password" class="form-control" name="conf_password" placeholder="Repite password" required="">
           <?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
-            <?php
-            if(!empty($usuario['gender']) && $usuario['gender'] == 'Female'){
-                $fcheck = 'checked="checked"';
-                $mcheck = '';
-            }else{
-                $mcheck = 'checked="checked"';
-                $fcheck = '';
-            }
-            ?>
-            <div class="radio">
-                <label>
-                <input type="radio" name="gender" value="Male" <?php echo $mcheck; ?>>
-                Male
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                  <input type="radio" name="gender" value="Female" <?php echo $fcheck; ?>>
-                  Female
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="submit" name="regisSubmit" class="btn-primary" value="Submit"/>
+            <input type="submit" name="regisSubmit" class="btn-primary" value="Procesar"/>
         </div>
     </form>
-    <p class="footInfo">Already have an account? <a href="<?php echo base_url(); ?>usuarios/login">Login here</a></p>              
 </div>
 </body>
 </html>
